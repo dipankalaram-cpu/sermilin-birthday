@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday & Happy New Year</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-family:Courier New, monospace;
+    overflow:hidden;
+}
+
+/* TAP TO START OVERLAY */
+#tapStart{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#ff66cc;
+    font-size:24px;
+    font-weight:bold;
+    z-index:999;
+    backdrop-filter:blur(3px);
+}
+
+/* Main box */
+.box{
+    padding:20px;
+    border:2px solid #ff99cc;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(8px);
+    box-shadow:0 0 25px #ff99cc;
+    animation: glowbox 5s infinite alternate;
+}
+
+/* BOX Glow animation */
+@keyframes glowbox{
+    0%{ box-shadow:0 0 20px #ff66aa; }
+    25%{ box-shadow:0 0 25px #ff33aa; }
+    50%{ box-shadow:0 0 32px #cc33ff; }
+    75%{ box-shadow:0 0 28px #9933ff; }
+    100%{ box-shadow:0 0 20px #ff0099; }
+}
+
+/* PHOTO with smooth RGB glow */
+img{
+    width:260px;
+    border-radius:20px;
+    margin-bottom:15px;
+    animation: photoglow 4s infinite alternate;
+}
+
+@keyframes photoglow{
+    0%{ box-shadow:0 0 20px #ff66cc; }
+    25%{ box-shadow:0 0 25px #cc66ff; }
+    50%{ box-shadow:0 0 30px #6699ff; }
+    75%{ box-shadow:0 0 28px #33ddff; }
+    100%{ box-shadow:0 0 20px #ff66cc; }
+}
+
+h1{
+    color:#ff66cc;
+    margin:5px 0;
+}
+h2{
+    color:#ff99ff;
+}
+
+#type{
+    color:white;
+    font-size:17px;
+    min-height:60px;
+    margin-top:10px;
+}
+
+/* Floating hearts ❤️ */
+.heart{
+    position:absolute;
+    color:#ff0066;
+    font-size:25px;
+    animation: floatUp 4s linear infinite;
+    opacity:0.8;
+}
+@keyframes floatUp{
+    0%{transform:translateY(50px) scale(1); opacity:1;}
+    100%{transform:translateY(-600px) scale(1.6); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TAP TO START SCREEN -->
+<div id="tapStart">✨ TAP TO START ✨</div>
+
+<!-- Hearts -->
+<script>
+function hearts(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (3 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(), 6000);
+}
+setInterval(hearts, 500);
+</script>
+
+<div class="box">
+
+    <img src="Sermilin.jpg" alt="Sermilin">
+
+    <h1>🎉 Happy Birthday Sermilin 🎂</h1>
+    <h2>✨ Happy New Year 2026 ✨</h2>
+
+    <p id="type"></p>
+</div>
+
+<script>
+// TYPEWRITER TEXT
+let text =
+"Baa... ❤️\n\
+Tum meri sagi sister nahi ho,\n\
+par jitna pyaar aur care diya hai\n\
+woh mere life ka ek beautiful part hai.\n\n\
+College me tumhara milna,\n\
+meri zindagi ka ek bin-mange\n\
+khushi ka khoobsurat pal tha. 😊\n\n\
+Aaj tumhara Birthday bhi hai,\n\
+aur New Year bhi —\n\
+Tumhari zindagi hamesha\n\
+love, smile aur success se bharpur rahe. ✨\n\
+Bhirse 🎀Happy Birthday💫🦋";
+
+let i = 0;
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("type").innerHTML +=
+        text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 45);
+    }
+}
+
+// AUDIO + TAP HANDLER
+let audio = new Audio("7years.mp3");
+
+document.getElementById("tapStart").onclick = function(){
+    this.style.display = "none";   // hide overlay
+    audio.play();                  // start song
+    typeWriter();                  // start text
+};
+</script>
+
+</body>
+</html>
